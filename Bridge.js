@@ -85,7 +85,15 @@ module.exports = {
   },
 
   contactNamePut: function(req, res, next){
+
     //This endpoint should update the contact by a unique name (and should error if not found)
+    // adding logic to verify proper phone number
+    // only checks to make sure number isn't more than 11 digits
+
+    const stringVersion = String(req.body.number);
+    if(stringVersion.length > 11){
+      return res.send(400)
+    }
     client.update({
       index: 'contacts',
       type: 'document',
